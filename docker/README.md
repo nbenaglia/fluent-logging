@@ -1,7 +1,5 @@
 This is a demo on [fluentd](https://www.fluentd.org/) logging layer using Docker.
 
-![Fluentd architecture](./images/ELK.png)
-
 - Create a volume for ElasticSearch:  
 
     **docker volume create elasticsearch**
