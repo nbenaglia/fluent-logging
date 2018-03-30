@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - image: elasticsearch:5.6.8
+        imagePullPolicy: IfNotPresent
+        name: elasticsearch
+        env:
+        - name:  FLUENT_ELASTICSEARCH_HOST
+          value: "elasticsearch"
+        - name:  FLUENT_ELASTICSEARCH_PORT
+          value: "9200"
+        ports:
+        - containerPort: 9200
+        volumeMounts:
+        - name: ps-elasticsearch
+          mountPath: /usr/share/elasticsearch/data
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9200
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9200
+          initialDelaySeconds: 20
+          timeoutSeconds: 5
+        # resources:
+        #   limits:
+        #     memory: 200Mi
+        #   requests:
+        #     cpu: 200m
+        #     memory: 200Mi
+      restartPolicy: Always
+      volumes:
+        - name: ps-elasticsearch
+          persistentVolumeClaim:
+            claimName: pvc-elasticsearch

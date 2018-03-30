@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 9200
+    targetPort: 9200
+    nodePort: 30920
+  selector:
+    app: elasticsearch
+  type: NodePort
