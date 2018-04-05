@@ -13,8 +13,9 @@
       logging:
         driver: "fluentd"
         options:
-          fluentd-address: localhost:24224
-          tag: httpd.access
+          #fluentd-address: localhost:24224   #Default address is localhost, no need to specify it.
+          fluentd-async-connect: "true"
+          tag: docker.{{.ID}}
 
     fluentd:
       image: fluent/fluentd:v1.1.2-gems
