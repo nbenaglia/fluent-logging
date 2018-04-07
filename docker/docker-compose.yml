@@ -2,6 +2,7 @@
 
   volumes:
     elasticsearch:
+    fluentd:
 
   services:
     web:
@@ -21,6 +22,7 @@
       image: fluent/fluentd:v1.1.2-gems
       volumes:
         - ./conf/fluentd/fluent.conf:/fluentd/etc/fluent.conf
+        - fluentd:/fluentd/log
       links:
         - "elasticsearch"
       ports:
