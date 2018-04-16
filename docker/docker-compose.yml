@@ -19,7 +19,7 @@
           tag: docker.{{.ID}}
 
     fluentd:
-      image: fluent/fluentd:v1.1.2-gems
+      image: fluent/fluentd:v1.2-deb-gem
       volumes:
         - ./conf/fluentd/fluent.conf:/fluentd/etc/fluent.conf
         - fluentd:/fluentd/log
